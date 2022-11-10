@@ -5,16 +5,19 @@
   Invoke the callback, passing in the product of the two numbers multiplied as the argument. 
 */
 
-// CODE HERE
+function multiply(num1, num2, callback) {
+  let product = num1 * num2;
 
+  return callback(product);
+}
 
 // UNCOMMENT THE FUNCTION CALL BELOW
 // RUN THIS FILE WITH NODE
 // CHECK YOUR ANSWER
 
-// multiply(4, 3, answer => {
-//   console.log('The answer is ' + answer) //should console.log 12
-// })
+multiply(4, 3, answer => {
+  console.log('The answer is ' + answer) //should console.log 12
+})
 
 
 
@@ -35,16 +38,17 @@ var names = ['Tyler', 'Cahlan', 'Ryan', 'Colt', 'Tyler', 'Blaine', 'Cahlan']
   Then invoke the callback function, passing in the first element in the array as it's argument.
 */
 
-// CODE HERE 
-
+const first = (arr, callback) => {
+  return callback(arr[0]);
+}
 
 // UNCOMMENT THE FUNCTION CALL BELOW
 // RUN THIS FILE WITH NODE
 // CHECK YOUR ANSWER
 
-// first(names, firstName => {
-//   console.log('The first name in names is ' + firstName)
-// })
+first(names, firstName => {
+  console.log('The first name in names is ' + firstName)
+})
 
 
 
@@ -55,16 +59,18 @@ var names = ['Tyler', 'Cahlan', 'Ryan', 'Colt', 'Tyler', 'Blaine', 'Cahlan']
   Then invoke the callback, passing in the last element in the array as the argument.
 */
 
-// CODE HERE
+function last(arr, callback) {
+  return callback(arr[arr.length - 1]);
+}
 
 
 // UNCOMMENT THE FUNCTION CALL BELOW
 // RUN THIS FILE WITH NODE
 // CHECK YOUR ANSWER
 
-// last(names, lastName => {
-//   console.log('The last name in names is ' + lastName)
-// })
+last(names, lastName => {
+  console.log('The last name in names is ' + lastName)
+})
 
 
 
@@ -77,20 +83,24 @@ var names = ['Tyler', 'Cahlan', 'Ryan', 'Colt', 'Tyler', 'Blaine', 'Cahlan']
   If the name does not exist, invoke the callback with false as the argument.
 */
 
-// CODE HERE 
+function contains(arr, name, callback) {
+
+  return arr.includes(name) ? callback(true) : callback(false);
+
+}
 
 
 // UNCOMMENT THE FUNCTION CALL BELOW
 // RUN THIS FILE WITH NODE
 // CHECK YOUR ANSWER
 
-// contains(names, 'Colt', result => {
-//   if(result === true){
-//     console.log('Colt is in the array')
-//   } else {
-//     console.log('Colt is not in the array')
-//   }
-// })
+contains(names, 'Colt', result => {
+  if (result === true) {
+    console.log('Colt is in the array')
+  } else {
+    console.log('Colt is not in the array')
+  }
+})
 
 
 
@@ -102,7 +112,13 @@ var names = ['Tyler', 'Cahlan', 'Ryan', 'Colt', 'Tyler', 'Blaine', 'Cahlan']
   Hint: you can use a nested for loop to do this.
 */
 
-// CODE HERE
+function uniq(arr, callback) {
+  let newSet = new Set();
+  let uniqArr = Array.from(newSet);
+
+  return callback(uniqArr)
+}
+
 
 /*
   Invoke the uniq function, passing in the names array from above and a callback function.
@@ -111,7 +127,10 @@ var names = ['Tyler', 'Cahlan', 'Ryan', 'Colt', 'Tyler', 'Blaine', 'Cahlan']
   'The new names array with all the duplicate items removed is [UNIQARRPARAM].'
 */
 
-// CODE HERE
+uniq(names, uniqArr => {
+  console.log(`The new names array with all the duplicate items removed is ${uniqArr}`)
+})
+
 
 
 
@@ -122,8 +141,12 @@ var names = ['Tyler', 'Cahlan', 'Ryan', 'Colt', 'Tyler', 'Blaine', 'Cahlan']
   For each name in the array, invoke the callback and pass in the name and the name's index as arguments.
 */
 
-// CODE HERE 
-
+const each = (arr, callback) => {
+  for (let i = 0; i < arr.length; i++) {
+    callback(arr[i], i)
+  }
+  return
+}
 
 /*
   Invoke the each function, passing in the names array and a callback function.
@@ -132,8 +155,9 @@ var names = ['Tyler', 'Cahlan', 'Ryan', 'Colt', 'Tyler', 'Blaine', 'Cahlan']
   'The item at index [INDEXPARAM] is [ITEMPARAM].'
 */
 
-// CODE HERE
-
+each(names, (item, index) => {
+  console.log(`The item at index ${index} is ${item}`)
+})
 
 ////////// PROBLEM 7 //////////
 
@@ -165,22 +189,25 @@ var users = [
 ]
 // Do not edit the code above.
 
-// CODE HERE 
 
+const getUserById = (arr, id, callback) => {
+  let match = arr.find(e => e.id === id);
+  match ? callback(match) : console.log(`User not found. Please check that id is correct.`);
+}
 
 // UNCOMMENT THE FUNCTION CALL BELOW
 // RUN THIS FILE WITH NODE
 // CHECK YOUR ANSWER
 
-// getUserById(users, '16t', user => {
-//   console.log('The user with the id 16t has the email of ' + user.email + ' the name of ' + user.name + ' and the address of ' + user.address) 
-// })
+getUserById(users, '16t', user => {
+  console.log('The user with the id 16t has the email of ' + user.email + ' the name of ' + user.name + ' and the address of ' + user.address)
+})
 
 ////////// CHALLENGE //////////
 
 /*
   You'll be writing a higher order function that returns
-  another function. 
+  another function.
 
   Create a function called addingFactory that takes in
   one parameter (it will be a number).
@@ -192,24 +219,27 @@ var users = [
   the two parameters together and return the sum.
 */
 
-// CODE HERE
+function addingFactory(num) {
+  return function (int) {
+    return num + int;
+  }
+}
 
 /*
   Now that you have addingFactory, you can create other
-  functions from it. 
+  functions from it.
 
   You're going to invoke addingFactory and save the result
-  to a new variable. 
+  to a new variable.
 
-  Create a variable called addTen and set it equal to 
+  Create a variable called addTen and set it equal to
   the invocation of addingFactory passing in the number
   10 as an arguemnt.
 */
 
-// CODE HERE
-
+const addTen = addingFactory(10);
 /*
-  Now the inner function is stored in the addTen variable! 
+  Now the inner function is stored in the addTen variable!
 
   Call the addTen function passing in another number and
   console log the result.
@@ -218,17 +248,20 @@ var users = [
   to see the different outputs.
 */
 
-// CODE HERE
+addTen(2);
+addTen(20);
 
 /*
-  Let's make another function from the addingFactory. 
+  Let's make another function from the addingFactory.
 
   This time, pass in your favorite number and name
   the variable addNUMBER with the name of the number
-  you chose. 
+  you chose.
 
   Once you create that, you can invoke the function
   to add any number to your favorite number!
 */
 
-// CODE HERE
+const addNumber = addingFactory(23);
+
+addNumber(100);
